@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
     <ContextWrapper>
       <header>
         <Link href="/">
-          <a>Home</a>
+          <a>Dashboard</a>
         </Link>
         <Link href="/count/add-count">
           <a>Add count</a>
