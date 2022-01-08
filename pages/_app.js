@@ -1,7 +1,21 @@
-import '../styles/globals.css'
+import Link from "next/link";
+import { ContextWrapper } from "../components/ContextWrapper.js";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ContextWrapper>
+      <header>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <Link href="/count/add-count">
+          <a>Add count</a>
+        </Link>
+      </header>
+      <Component {...pageProps} />
+    </ContextWrapper>
+  );
 }
 
-export default MyApp
+export default MyApp;
