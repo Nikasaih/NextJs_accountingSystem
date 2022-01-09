@@ -1,0 +1,39 @@
+.earn {
+  color: green;
+}
+.loose {
+  color: red;
+}
+
+.XLarge {
+  font-size: x-large;
+}
+.justification {
+  color: black;
+  font-size: medium;
+  margin-top: 0%;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  font-size: xx-large;
+}
+
+.link {
+  color: black;
+  text-decoration: underline;
+}
+.formContent {
+  width: 100%;
+}
+
+.thborder {
+  border: solid black;
+}

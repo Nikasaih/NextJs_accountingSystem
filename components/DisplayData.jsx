@@ -1,40 +1,63 @@
 import { useContext } from "react";
 import { AppContext } from "./ContextWrapper.js";
+import cn from "classnames";
+import styles from "../styles/earnOrLoose.module.css";
 
 const EachInOutCome = (props) => {
   const { data, ...otherProps } = props;
   let earn = 0;
   let loose = 0;
+  const selectColorOnType = (type) => {
+    const response = type === "earn" ? styles.earn : styles.loose;
+    return response;
+  };
+
   return (
     <table props={otherProps}>
       <thead>
         <tr>
-          <th scope="col">Income</th>
-          <th scope="col">Outcome</th>
-          <th scope="col">Justification</th>
+          <th scope="col" className={styles.XLarge}>
+            Income
+          </th>
+          <th scope="col" className={styles.XLarge}>
+            Outcome
+          </th>
         </tr>
       </thead>
       <tbody>
         {data
           ? data.map((e) => {
-              let t;
-              if (e.state === "pos") {
-                t = { positive: e.count };
+              let currentCountState = e.state;
+              if (e.state === "earn") {
                 earn += parseInt(e.count);
               } else {
-                t = { negative: e.count };
                 loose += parseInt(e.count);
               }
-
+              const colorAndSize = `${selectColorOnType(currentCountState)} ${
+                styles.XLarge
+              } ${styles.thborder}`;
               return (
                 <tr key={e.id}>
-                  <th bgcolor={t.positive ? `green` : null}>
-                    {t.positive ? `+ ${t.positive}$` : null}
+                  <th className={colorAndSize}>
+                    {currentCountState === "earn" ? (
+                      <>
+                        + {e.count}$
+                        <p className={styles.justification}>
+                          {e.justification}
+                        </p>
+                      </>
+                    ) : null}
                   </th>
-                  <th bgcolor={t.negative ? `red` : null}>
-                    {t.negative ? `- ${t.negative}$` : null}
+                  <th className={colorAndSize}>
+                    {currentCountState === "loose" ? (
+                      <>
+                        + {e.count}$
+                        <p className={styles.justification}>
+                          {e.justification}
+                        </p>
+                      </>
+                    ) : null}
                   </th>
-                  <th>{e.justification}</th>
                 </tr>
               );
             })
@@ -42,13 +65,23 @@ const EachInOutCome = (props) => {
       </tbody>
       <tfoot>
         <tr>
-          <th bgcolor="green">Totals Earn {earn}$</th>
+          <th className={`${styles.earn} ${styles.XLarge} ${styles.thborder}`}>
+            Totals earn : {earn}$
+          </th>
 
-          <th bgcolor="red"> Totals Loose {loose}$</th>
+          <th
+            className={`${styles.loose} ${styles.XLarge} ${styles.thborder} `}
+          >
+            Totals loose : {loose}$
+          </th>
         </tr>
         <tr>
-          <th bgcolor={earn - loose > 0 ? "green" : "red"}>
-            current Money {earn - loose}
+          <th
+            className={`${earn - loose > 0 ? styles.earn : styles.loose} ${
+              styles.XLarge
+            } ${styles.thborder}`}
+          >
+            Current money : {earn - loose}$
           </th>
         </tr>
       </tfoot>

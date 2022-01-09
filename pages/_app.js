@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { ContextWrapper } from "../components/ContextWrapper.js";
-import "../styles/globals.css";
+import styles from "../styles/earnOrLoose.module.css";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ContextWrapper>
-      <header>
+      <header className={styles.header}>
         <Link href="/">
-          <a>Dashboard</a>
+          <a className={styles.link}>Dashboard</a>
         </Link>
         <Link href="/count/add-count">
-          <a>Add count</a>
+          <a className={styles.link}>Add count</a>
         </Link>
       </header>
       <Component {...pageProps} />

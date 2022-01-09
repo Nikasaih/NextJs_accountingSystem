@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
-export const AppContext = createContext({});
 import { nanoid } from "nanoid";
+
+export const AppContext = createContext({});
 
 function ContextWrapper(props) {
   const { children, ...otherProps } = props;
@@ -8,15 +9,27 @@ function ContextWrapper(props) {
   const initialState = [
     {
       id: nanoid(),
-      count: "5651",
+      count: "51",
       justification: "justification 1",
-      state: "pos",
+      state: "earn",
+    },
+    {
+      id: nanoid(),
+      count: "1000000",
+      justification: "Gagner au loto",
+      state: "earn",
     },
     {
       id: nanoid(),
       count: "43",
       justification: "justification 2",
-      state: "neg",
+      state: "loose",
+    },
+    {
+      id: nanoid(),
+      count: "1000000",
+      justification: "Corrompre M.KAZARIAN",
+      state: "loose",
     },
   ];
   const [data, setData] = useState(initialState);
@@ -27,9 +40,9 @@ function ContextWrapper(props) {
     setData([...data, newData]);
   };
 
-  const test = { data, addData };
+  const contextProps = { data, addData };
   return (
-    <AppContext.Provider {...otherProps} value={test}>
+    <AppContext.Provider {...otherProps} value={contextProps}>
       {children}
     </AppContext.Provider>
   );
