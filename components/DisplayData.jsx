@@ -1,16 +1,16 @@
-import { useContext } from "react";
-import { AppContext } from "./ContextWrapper.js";
-import cn from "classnames";
-import styles from "../styles/earnOrLoose.module.css";
+import { useContext } from "react"
+import { AppContext } from "./ContextWrapper.js"
+import cn from "classnames"
+import styles from "../styles/earnOrLoose.module.css"
 
 const EachInOutCome = (props) => {
-  const { data, ...otherProps } = props;
-  let earn = 0;
-  let loose = 0;
+  const { data, ...otherProps } = props
+  let earn = 0
+  let loose = 0
   const selectColorOnType = (type) => {
-    const response = type === "earn" ? styles.earn : styles.loose;
-    return response;
-  };
+    const response = type === "earn" ? styles.earn : styles.loose
+    return response
+  }
 
   return (
     <table props={otherProps}>
@@ -27,15 +27,15 @@ const EachInOutCome = (props) => {
       <tbody>
         {data
           ? data.map((e) => {
-              let currentCountState = e.state;
+              let currentCountState = e.state
               if (e.state === "earn") {
-                earn += parseInt(e.count);
+                earn += parseInt(e.count)
               } else {
-                loose += parseInt(e.count);
+                loose += parseInt(e.count)
               }
               const colorAndSize = `${selectColorOnType(currentCountState)} ${
                 styles.XLarge
-              } ${styles.thborder}`;
+              } ${styles.thborder}`
               return (
                 <tr key={e.id}>
                   <th className={colorAndSize}>
@@ -59,7 +59,7 @@ const EachInOutCome = (props) => {
                     ) : null}
                   </th>
                 </tr>
-              );
+              )
             })
           : null}
       </tbody>
@@ -86,15 +86,15 @@ const EachInOutCome = (props) => {
         </tr>
       </tfoot>
     </table>
-  );
-};
+  )
+}
 
 export default function DisplayData({ children, props }) {
-  const { data } = useContext(AppContext);
+  const { data } = useContext(AppContext)
 
   return (
     <div>
       <EachInOutCome data={data} />
     </div>
-  );
+  )
 }

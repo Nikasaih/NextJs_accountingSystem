@@ -1,14 +1,14 @@
-import { Formik } from "formik";
-import { useContext, useState } from "react";
-import { AppContext } from "../../components/ContextWrapper.js";
-import styles from "../../styles/earnOrLoose.module.css";
+import { Formik } from "formik"
+import { useContext, useState } from "react"
+import { AppContext } from "../../components/ContextWrapper.js"
+import styles from "../../styles/earnOrLoose.module.css"
 
 export default function AddCount() {
-  const { data, addData } = useContext(AppContext);
-  const [state, setState] = useState("earn");
+  const { data, addData } = useContext(AppContext)
+  const [state, setState] = useState("earn")
   const toggleState = () => {
-    state === "earn" ? setState("loose") : setState("earn");
-  };
+    state === "earn" ? setState("loose") : setState("earn")
+  }
   const formAddCount = ({
     values,
     errors,
@@ -55,8 +55,8 @@ export default function AddCount() {
           Submit
         </button>
       </form>
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -64,23 +64,23 @@ export default function AddCount() {
       <Formik
         initialValues={{ count: "", justification: "" }}
         validate={(values) => {
-          const errors = {};
+          const errors = {}
           if (!values.count) {
-            errors.count = "Required";
+            errors.count = "Required"
           } else if (!/^[0-9]+$/i.test(values.count)) {
-            errors.count = "invalid count ";
+            errors.count = "invalid count "
           } else if (values.count == 0) {
-            errors.count = "Attention 0 n'est pas autorisé";
+            errors.count = "Attention 0 n'est pas autorisé"
           }
-          return errors;
+          return errors
         }}
         onSubmit={(values, { resetForm }) => {
-          addData(values, state);
-          resetForm({ values: "" });
+          addData(values, state)
+          resetForm({ values: "" })
         }}
       >
         {formAddCount}
       </Formik>
     </div>
-  );
+  )
 }
