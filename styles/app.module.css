@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  font-size: xx-large;
+}
+
+.link {
+  color: black;
+  text-decoration: underline;
+}

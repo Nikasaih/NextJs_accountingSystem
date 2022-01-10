@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { AppContext } from "./ContextWrapper.js"
-import cn from "classnames"
-import styles from "../styles/earnOrLoose.module.css"
+import styles from "../styles/displayData.module.css"
 
 const EachInOutCome = (props) => {
   const { data, ...otherProps } = props
@@ -9,13 +8,14 @@ const EachInOutCome = (props) => {
   let loose = 0
   const selectColorOnType = (type) => {
     const response = type === "earn" ? styles.earn : styles.loose
+
     return response
   }
 
   return (
-    <table props={otherProps}>
+    <table props={otherProps} className={styles.table}>
       <thead>
-        <tr>
+        <tr className={styles.borderBlack}>
           <th scope="col" className={styles.XLarge}>
             Income
           </th>
@@ -24,21 +24,30 @@ const EachInOutCome = (props) => {
           </th>
         </tr>
       </thead>
+
       <tbody>
         {data
-          ? data.map((e) => {
+          ? data.map((e, index) => {
               let currentCountState = e.state
+
               if (e.state === "earn") {
                 earn += parseInt(e.count)
               } else {
                 loose += parseInt(e.count)
               }
+
               const colorAndSize = `${selectColorOnType(currentCountState)} ${
                 styles.XLarge
-              } ${styles.thborder}`
+              } ${styles.borderBlack}`
+
               return (
-                <tr key={e.id}>
-                  <th className={colorAndSize}>
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 ? styles.lightGray : ""
+                  } ${colorAndSize}`}
+                >
+                  <th>
                     {currentCountState === "earn" ? (
                       <>
                         + {e.count}$
@@ -48,7 +57,7 @@ const EachInOutCome = (props) => {
                       </>
                     ) : null}
                   </th>
-                  <th className={colorAndSize}>
+                  <th>
                     {currentCountState === "loose" ? (
                       <>
                         + {e.count}$
@@ -63,14 +72,17 @@ const EachInOutCome = (props) => {
             })
           : null}
       </tbody>
+
       <tfoot>
         <tr>
-          <th className={`${styles.earn} ${styles.XLarge} ${styles.thborder}`}>
+          <th
+            className={`${styles.earn} ${styles.XLarge} ${styles.borderBlack}`}
+          >
             Totals earn : {earn}$
           </th>
 
           <th
-            className={`${styles.loose} ${styles.XLarge} ${styles.thborder} `}
+            className={`${styles.loose} ${styles.XLarge} ${styles.borderBlack} `}
           >
             Totals loose : {loose}$
           </th>
@@ -79,7 +91,7 @@ const EachInOutCome = (props) => {
           <th
             className={`${earn - loose > 0 ? styles.earn : styles.loose} ${
               styles.XLarge
-            } ${styles.thborder}`}
+            } ${styles.borderBlack}`}
           >
             Current money : {earn - loose}$
           </th>
@@ -89,7 +101,7 @@ const EachInOutCome = (props) => {
   )
 }
 
-export default function DisplayData({ children, props }) {
+export default function DisplayData() {
   const { data } = useContext(AppContext)
 
   return (

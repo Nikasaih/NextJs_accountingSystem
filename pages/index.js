@@ -1,9 +1,6 @@
 import Head from "next/head"
-import Image from "next/image"
-import { useState } from "react"
-import { loadData, saveData, totot } from "../lib/loadOrSave.js"
 import DisplayData from "../components/DisplayData.jsx"
-import styles from "../styles/earnOrLoose.module.css"
+import styles from "../styles/displayData.module.css"
 
 export default function Home() {
   return (

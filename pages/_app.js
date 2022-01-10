@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ContextWrapper } from "../components/ContextWrapper.js"
-import styles from "../styles/earnOrLoose.module.css"
+import styles from "../styles/app.module.css"
 
 function MyApp({ Component, pageProps }) {
   return (

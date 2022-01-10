@@ -1,0 +1,20 @@
+.formUpDown {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputText {
+  padding: 10px;
+}
+
+.earn {
+  color: green;
+}
+
+.loose {
+  color: red;
+}
+
+.inputBtn {
+  font-size: large;
+}

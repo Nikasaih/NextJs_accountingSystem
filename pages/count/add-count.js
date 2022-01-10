@@ -1,10 +1,10 @@
 import { Formik } from "formik"
 import { useContext, useState } from "react"
 import { AppContext } from "../../components/ContextWrapper.js"
-import styles from "../../styles/earnOrLoose.module.css"
+import styles from "../../styles/addCount.module.css"
 
 export default function AddCount() {
-  const { data, addData } = useContext(AppContext)
+  const { addData } = useContext(AppContext)
   const [state, setState] = useState("earn")
   const toggleState = () => {
     state === "earn" ? setState("loose") : setState("earn")
@@ -16,27 +16,26 @@ export default function AddCount() {
     handleChange,
     handleBlur,
     handleSubmit,
-    isSubmitting,
     /* and other goodies */
   }) => {
     return (
-      <form onSubmit={handleSubmit} className={styles.centered}>
+      <form onSubmit={handleSubmit} className={styles.formUpDown}>
         <input
           type="text"
           name="count"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.count}
-          className={`${styles.XLarge} ${styles.formContent} `}
+          className={styles.inputText}
         />
-        {errors.count && touched.count && errors.count}
+        <p>{errors.count && touched.count && errors.count}</p>
         <input
           type="button"
           onClick={toggleState}
           value={state === "earn" ? "Income" : "Outcome"}
           className={`${state === "earn" ? styles.earn : styles.loose} ${
-            styles.formContent
-          } ${styles.XLarge}`}
+            styles.inputBtn
+          }`}
         />
 
         <input
@@ -45,13 +44,10 @@ export default function AddCount() {
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.justification}
-          className={`${styles.XLarge} ${styles.formContent}`}
+          className={styles.inputText}
         />
         {errors.justification && touched.justification && errors.justification}
-        <button
-          type="submit"
-          className={`${styles.XLarge} ${styles.formContent}`}
-        >
+        <button type="submit" className={styles.inputBtn}>
           Submit
         </button>
       </form>
@@ -60,11 +56,12 @@ export default function AddCount() {
 
   return (
     <div>
-      <h1 className={styles.centered}>Add count</h1>
+      <h1>Add count</h1>
       <Formik
         initialValues={{ count: "", justification: "" }}
         validate={(values) => {
           const errors = {}
+
           if (!values.count) {
             errors.count = "Required"
           } else if (!/^[0-9]+$/i.test(values.count)) {
@@ -72,6 +69,7 @@ export default function AddCount() {
           } else if (values.count == 0) {
             errors.count = "Attention 0 n'est pas autorisé"
           }
+
           return errors
         }}
         onSubmit={(values, { resetForm }) => {
