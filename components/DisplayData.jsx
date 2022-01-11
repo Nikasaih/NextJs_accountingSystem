@@ -2,7 +2,32 @@ import { useContext } from "react"
 import { AppContext } from "./ContextWrapper.js"
 import styles from "../styles/displayData.module.css"
 
-const EachInOutCome = (props) => {
+const DisplayDataInRow = (props) => {
+  const { element, ...otherProps } = props
+
+  return (
+    <tr {...otherProps}>
+      <th>
+        {element.state === "earn" ? (
+          <>
+            + {element.count}$
+            <p className={styles.justification}>{element.justification}</p>
+          </>
+        ) : null}
+      </th>
+      <th>
+        {element.state === "loose" ? (
+          <>
+            + {element.count}$
+            <p className={styles.justification}>{element.justification}</p>
+          </>
+        ) : null}
+      </th>
+    </tr>
+  )
+}
+
+const DisplayDataInTable = (props) => {
   const { data, ...otherProps } = props
   let earn = 0
   let loose = 0
@@ -28,46 +53,24 @@ const EachInOutCome = (props) => {
       <tbody>
         {data
           ? data.map((e, index) => {
-              let currentCountState = e.state
-
               if (e.state === "earn") {
                 earn += parseInt(e.count)
               } else {
                 loose += parseInt(e.count)
               }
 
-              const colorAndSize = `${selectColorOnType(currentCountState)} ${
+              const colorAndSize = `${selectColorOnType(e.state)} ${
                 styles.XLarge
               } ${styles.borderBlack}`
 
               return (
-                <tr
+                <DisplayDataInRow
                   key={index}
                   className={`${
                     index % 2 ? styles.lightGray : ""
                   } ${colorAndSize}`}
-                >
-                  <th>
-                    {currentCountState === "earn" ? (
-                      <>
-                        + {e.count}$
-                        <p className={styles.justification}>
-                          {e.justification}
-                        </p>
-                      </>
-                    ) : null}
-                  </th>
-                  <th>
-                    {currentCountState === "loose" ? (
-                      <>
-                        + {e.count}$
-                        <p className={styles.justification}>
-                          {e.justification}
-                        </p>
-                      </>
-                    ) : null}
-                  </th>
-                </tr>
+                  element={e}
+                />
               )
             })
           : null}
@@ -106,7 +109,7 @@ export default function DisplayData() {
 
   return (
     <div>
-      <EachInOutCome data={data} />
+      <DisplayDataInTable data={data} />
     </div>
   )
 }
