@@ -18,7 +18,7 @@ const DisplayDataInRow = (props) => {
       <th>
         {element.state === "loose" ? (
           <>
-            + {element.count}$
+            - {element.count}$
             <p className={styles.justification}>{element.justification}</p>
           </>
         ) : null}
