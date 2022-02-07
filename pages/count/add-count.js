@@ -27,6 +27,7 @@ export default function AddCount() {
           onBlur={handleBlur}
           value={values.count}
           className={styles.inputText}
+          placeholder="Count"
         />
         <p>{errors.count && touched.count && errors.count}</p>
         <input
@@ -45,6 +46,7 @@ export default function AddCount() {
           onBlur={handleBlur}
           value={values.justification}
           className={styles.inputText}
+          placeholder="Description"
         />
         {errors.justification && touched.justification && errors.justification}
         <button type="submit" className={styles.inputBtn}>
